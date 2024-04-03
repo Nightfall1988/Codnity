@@ -6,3 +6,46 @@
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+
+/* Style for the table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  table th, table td {
+    border: 1px solid #060af0;
+    padding: 8px;
+  }
+  
+  table th {
+    background-color: #868ee3;
+  }
+  
+  /* Style for the delete button */
+  button {
+    padding: 5px 10px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  button:hover {
+    background-color: #c82333;
+  }
+  
+  /* Optional: Add some spacing between table rows */
+  tbody tr {
+    margin-bottom: 10px;
+  }
+  
+  .fade-out {
+    transition: opacity 0.5s ease-out;
+    opacity: 0;
+  }
+
+  body {
+    background-color: #c4c4d4;
+  }

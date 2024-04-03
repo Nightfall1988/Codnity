@@ -28,7 +28,19 @@ class HomeController extends Controller
     }
 
     public function list() {
-        $articles = Article::all();
+        $articles = Article::where('status', '=', 1)->get();
         return view('list', compact('articles'));
+    }
+
+    public function deleteArticle($id) {
+        $article = Article::find($id);
+        if ($article) {
+            $article->status = 0;
+            $article->save();
+            return 1;
+        } else {
+            return 0;
+        }
+
     }
 }

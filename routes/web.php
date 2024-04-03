@@ -19,4 +19,5 @@ Route::get('/', [HomeController::class, 'list'])->middleware('auth');
 //     return view('list');
 // })->middleware('auth');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::post('/delete-articles/{articleId}', [HomeController::class, 'deleteArticle'])->name('home');
