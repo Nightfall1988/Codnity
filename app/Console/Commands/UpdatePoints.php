@@ -41,16 +41,17 @@ class UpdatePoints extends Command
             $title = $article->filter('td.title > span.titleline > a')->text();
             $nextTr = $article->nextAll()->eq(0);
             $points = $nextTr->filter('span.score')->count() ? $nextTr->filter('span.score')->text() : 'N/A';
-            
+            $points = str_replace(' points', '', $points);
             $articleObj = Article::where('title', '=', $title)->first();
 
-            if ($articleObj || $articleObj->status == 0) {
+            if ($articleObj != null) {
                 $oldPoints = $articleObj->points;
-
-                if ($points != $oldPoints) {
-                    $articleObj->points = str_replace(' points', '', $points);
-                    $articleObj->save();
-                    echo "Article titled: " . $title . " - $oldPoints points updated to $articleObj->points\n";
+                if ($articleObj->status != 0) {
+                    if ($points !== $oldPoints) {
+                        $articleObj->points = str_replace(' points', '', $points);
+                        $articleObj->save();
+                        echo "Article titled: " . $title . " - $oldPoints points updated to $articleObj->points\n";
+                    }
                 }
             }
         });
