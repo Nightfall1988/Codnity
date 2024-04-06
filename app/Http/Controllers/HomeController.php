@@ -28,7 +28,7 @@ class HomeController extends Controller
     }
 
     public function list() {
-        $articles = Article::where('status', '=', 1)->get();
+        $articles = $this->getAllArticles();
         return view('list', compact('articles'));
     }
 
@@ -42,5 +42,15 @@ class HomeController extends Controller
             return 0;
         }
 
+    }
+    public function getAllArticles()
+    {
+        return  Article::where('status', '=', 1)->paginate(10); // Paginate articles, assuming 10 per page
+    }
+
+    public function getPaginatedArticles()
+    {
+        $articles = $this->getAllArticles();
+        return response()->json($articles);
     }
 }

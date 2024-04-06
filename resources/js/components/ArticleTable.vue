@@ -27,60 +27,45 @@
         </tr>
       </tbody>
     </table>
-    <!-- <ul class="pagination">
-                        <li class="page-item" v-for="page in pagination.links" :key="page.label" :class="{ 'active': page.active }">
-                            <a class="page-link" @click="fetchData(page.url)">{{ page.label }}</a>
-                        </li>
-                    </ul> -->
+    <br>
+    <br>
+      <div id="pagination">
+        <nav aria-label="navigation">
+          <ul class="pagination">
+              <li class="page-item" v-for="page in pagination.links" :key="page.label" :class="{ 'active': page.active }">
+                  <a class="page-link" @click="getArticles(page.label)">{{ page.label }}</a>
+              </li>
+          </ul>
+        </nav>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['articles'],
-
+    data() {
+      return {
+        articles: [],
+        pagination: {}
+      };
+    },
+    mounted() {
+    this.getArticles(1);
+  },
   methods: {
-    deleteArticle(articleId, article) {
-      axios.post(`/delete-articles/${articleId}`)
+    getArticles(page) {
+      axios.get(`/articles?page=${page}`)
         .then(response => {
-          if (response.data == 1) {
-            article.deleted = true;
 
-            setTimeout(() => {
-              const index = this.articles.findIndex(a => a.id === articleId);
-              if (index !== -1) {
-                this.articles.splice(index, 1);
-              }
-            }, 500);
-
-            console.log('Article deleted successfully');
-          }
+          this.articles = response.data.data;
+          this.pagination = response.data;
+          console.log(response.data)
         })
         .catch(error => {
-          console.error('Error deleting article:', error);
+          console.error('Error fetching articles:', error);
         });
     },
-    fetchData(url) {
-        axios.post(url)
-            .then(response => {
-                this.currencyRates = response.data.data;
-                this.pagination = response.data;
-
-                let rates = [];
-
-                for (let i = 0; i < this.currencyRates.length; i++) {
-                    rates.push(this.currencyRates[i].rate);
-                }
-
-                this.minRate = Math.min(...rates);
-                this.maxRate = Math.max(...rates);
-                this.avgRate = this.getAverage(this.currencyRates);
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-            });
-        },
-  }
+  },
 }
 </script>
 
