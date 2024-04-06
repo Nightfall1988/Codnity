@@ -83,10 +83,9 @@ export default {
         .catch(error => {
           console.error('Error fetching articles:', error);
         });
-    }
-    
-  },
-}
+      }
+    },
+  }
 </script>
 
 <style>
