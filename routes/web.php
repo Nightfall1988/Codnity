@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ArticleController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,12 +13,11 @@ use App\Http\Controllers\HomeController;
 |
 */
 Auth::routes();
-Route::get('/', [HomeController::class, 'list'])->middleware('auth');
 
-// Route::get('/', function () {
-//     return view('list');
-// })->middleware('auth');
-Route::get('/articles', [HomeController::class, 'getAllArticles']);
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::post('/delete-articles/{articleId}', [HomeController::class, 'deleteArticle'])->name('home');
+Route::get('/', [ArticleController::class, 'list'])
+    ->middleware('auth');
+Route::get('/articles', [ArticleController::class, 'getAllArticles'])
+    ->middleware('auth');
+Route::post('/delete-article/{articleId}', [ArticleController::class, 'deleteArticle'])
+    ->name('delete')
+    ->middleware('auth');

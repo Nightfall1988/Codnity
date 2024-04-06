@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class ArticleController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -41,11 +41,11 @@ class HomeController extends Controller
         } else {
             return 0;
         }
-
     }
+
     public function getAllArticles()
     {
-        return  Article::where('status', '=', 1)->paginate(10); // Paginate articles, assuming 10 per page
+        return  Article::where('status', '=', 1)->paginate(10);
     }
 
     public function getPaginatedArticles()
