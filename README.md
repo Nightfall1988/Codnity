@@ -22,3 +22,5 @@
 6. Seed the database with test user <b>php artisan db:seed --class=UserSeeder</b> to login into     application, or Register in an application.
 
 7. Run <b>npm run dev</b> command
+
+8. Run <b>php artisan serv</b> to start the server
