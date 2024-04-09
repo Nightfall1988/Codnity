@@ -2,44 +2,49 @@
   <div>
       <div id="table-container">
       <h2>Articles</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Title</th>
-            <th>Link</th>
-            <th>Points</th>
-            <th>Author</th>
-            <th>Date Created</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="article in articles" :key="article.id" :class="{ 'fade-out': article.deleted }">
-            <td>{{ article.rank }}</td>
-            <td>{{ article.title }}</td>
-            <td><a :href="article.link" target="_blank">Link</a></td>
-            <td>{{ article.points }}</td>
-            <td>{{ article.author }}</td>
-            <td>{{ article.date_created }}</td>
-            <td>
-              <button @click="deleteArticle(article.id, article)">Delete</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <br>
-      <br>
-      </div>
-          <div id="pagination">
-            <nav aria-label="navigation">
-              <ul class="pagination">
-                  <li class="page-item" v-for="page in pagination.links" :key="page.label" :class="{ 'active': page.active }">
-                      <a class="page-link" @click="getArticles(page.url)">{{ page.label }}</a>
-                  </li>
-              </ul>
-            </nav>
+        <div v-if="articles.length === 0">
+          <p>No articles found. To scrape for articles, please refer to the commands in the README file.</p>
         </div>
+        <div v-else>
+          <table>
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Title</th>
+                <th>Link</th>
+                <th>Points</th>
+                <th>Author</th>
+                <th>Date Created</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="article in articles" :key="article.id" :class="{ 'fade-out': article.deleted }">
+                <td>{{ article.rank }}</td>
+                <td>{{ article.title }}</td>
+                <td><a :href="article.link" target="_blank">Link</a></td>
+                <td>{{ article.points }}</td>
+                <td>{{ article.author }}</td>
+                <td>{{ article.date_created }}</td>
+                <td>
+                  <button @click="deleteArticle(article.id, article)">Delete</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+          <br>
+          </div>
+              <div id="pagination">
+                <nav aria-label="navigation">
+                  <ul class="pagination">
+                      <li class="page-item" v-for="page in pagination.links" :key="page.label" :class="{ 'active': page.active }">
+                          <a class="page-link" @click="getArticles(page.url)">{{ page.label }}</a>
+                      </li>
+                  </ul>
+                </nav>
+            </div>
+      </div>
   </div>
 </template>
 
